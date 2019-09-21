@@ -37,6 +37,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define DELAY_FAST 50
+#define DELAY_SLOW 1000
 #define LEDS 9
 /* USER CODE END PD */
 
@@ -131,16 +132,29 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+	  HAL_Delay(DELAY_SLOW);
 	  if(HAL_GPIO_ReadPin(Taster1_GPIO_Port,Taster1_Pin))
 	  {
-		  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
-		  HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
-		  HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,1);
-		  HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,1);
-		  HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,1);
-		  HAL_GPIO_WritePin(LED6_GPIO_Port,LED6_Pin,1);
-		  HAL_GPIO_WritePin(LED7_GPIO_Port,LED7_Pin,1);
-		  HAL_GPIO_WritePin(LED8_GPIO_Port,LED8_Pin,1);
+		  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+		  HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
+		  HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
+		  HAL_GPIO_TogglePin(LED4_GPIO_Port,LED4_Pin);
+		  HAL_GPIO_TogglePin(LED5_GPIO_Port,LED5_Pin);
+		  HAL_GPIO_TogglePin(LED6_GPIO_Port,LED6_Pin);
+		  HAL_GPIO_TogglePin(LED7_GPIO_Port,LED7_Pin);
+		  HAL_GPIO_TogglePin(LED8_GPIO_Port,LED8_Pin);
+	  }
+	  if(!HAL_GPIO_ReadPin(Taster1_GPIO_Port,Taster1_Pin))
+	  {
+		  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
+		  HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
+		  HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,0);
+		  HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,0);
+		  HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,0);
+		  HAL_GPIO_WritePin(LED6_GPIO_Port,LED6_Pin,0);
+		  HAL_GPIO_WritePin(LED7_GPIO_Port,LED7_Pin,0);
+		  HAL_GPIO_WritePin(LED8_GPIO_Port,LED8_Pin,0);
 	  }
 
 	  if(HAL_GPIO_ReadPin(Taster2_GPIO_Port,Taster2_Pin))
@@ -157,19 +171,6 @@ int main(void)
 		  }
 	  }
 
-	  else
-	  {
-		  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
-		  HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
-		  HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,0);
-		  HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,0);
-		  HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,0);
-		  HAL_GPIO_WritePin(LED6_GPIO_Port,LED6_Pin,0);
-		  HAL_GPIO_WritePin(LED7_GPIO_Port,LED7_Pin,0);
-		  HAL_GPIO_WritePin(LED8_GPIO_Port,LED8_Pin,0);
-		  HAL_Delay(500);
-		  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
-	  }
   }
   /* USER CODE END 3 */
 }
