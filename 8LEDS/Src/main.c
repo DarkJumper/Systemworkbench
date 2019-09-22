@@ -55,35 +55,54 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void led(int number)
+void led(int number, int Zustand)
 {
 	switch(number)
 	{
 	case 1:
-		  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+		  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,Zustand);
 		  break;
 	case 2:
-		  HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
+		  HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,Zustand);
 		  break;
 	case 3:
-		  HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
+		  HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,Zustand);
 		  break;
 	case 4:
-		  HAL_GPIO_TogglePin(LED4_GPIO_Port,LED4_Pin);
+		  HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,Zustand);
 		  break;
 	case 5:
-		  HAL_GPIO_TogglePin(LED5_GPIO_Port,LED5_Pin);
+		  HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,Zustand);
 		  break;
 	case 6:
-		  HAL_GPIO_TogglePin(LED6_GPIO_Port,LED6_Pin);
+		  HAL_GPIO_WritePin(LED6_GPIO_Port,LED6_Pin,Zustand);
 		  break;
 	case 7:
-		  HAL_GPIO_TogglePin(LED7_GPIO_Port,LED7_Pin);
+		  HAL_GPIO_WritePin(LED7_GPIO_Port,LED7_Pin,Zustand);
 		  break;
 	case 8:
-		  HAL_GPIO_TogglePin(LED8_GPIO_Port,LED8_Pin);
+		  HAL_GPIO_WritePin(LED8_GPIO_Port,LED8_Pin,Zustand);
 		  break;
 	}
+}
+
+void Blink()
+{
+	  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+	  HAL_Delay(DELAY_SLOW);
+}
+
+void Lampen_Test(int i)
+{
+	HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,i);
+	HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,i);
+	HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,i);
+	HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,i);
+	HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,i);
+	HAL_GPIO_WritePin(LED6_GPIO_Port,LED6_Pin,i);
+	HAL_GPIO_WritePin(LED7_GPIO_Port,LED7_Pin,i);
+	HAL_GPIO_WritePin(LED8_GPIO_Port,LED8_Pin,i);
+	HAL_Delay(DELAY_SLOW);
 }
 /* USER CODE END PFP */
 
@@ -132,45 +151,35 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-	  HAL_Delay(DELAY_SLOW);
-	  if(HAL_GPIO_ReadPin(Taster1_GPIO_Port,Taster1_Pin))
-	  {
-		  HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-		  HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
-		  HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
-		  HAL_GPIO_TogglePin(LED4_GPIO_Port,LED4_Pin);
-		  HAL_GPIO_TogglePin(LED5_GPIO_Port,LED5_Pin);
-		  HAL_GPIO_TogglePin(LED6_GPIO_Port,LED6_Pin);
-		  HAL_GPIO_TogglePin(LED7_GPIO_Port,LED7_Pin);
-		  HAL_GPIO_TogglePin(LED8_GPIO_Port,LED8_Pin);
-	  }
-	  if(!HAL_GPIO_ReadPin(Taster1_GPIO_Port,Taster1_Pin))
-	  {
-		  HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
-		  HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
-		  HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,0);
-		  HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,0);
-		  HAL_GPIO_WritePin(LED5_GPIO_Port,LED5_Pin,0);
-		  HAL_GPIO_WritePin(LED6_GPIO_Port,LED6_Pin,0);
-		  HAL_GPIO_WritePin(LED7_GPIO_Port,LED7_Pin,0);
-		  HAL_GPIO_WritePin(LED8_GPIO_Port,LED8_Pin,0);
-	  }
 
-	  if(HAL_GPIO_ReadPin(Taster2_GPIO_Port,Taster2_Pin))
+	  Blink();
+
+	  while(HAL_GPIO_ReadPin(Taster1_GPIO_Port,Taster1_Pin))
 	  {
-		  for (int i=0; i<LEDS; i++)
+		  int a = 1;
+		  Lampen_Test(a);
+		  if(!HAL_GPIO_ReadPin(Taster1_GPIO_Port,Taster1_Pin))
 		  {
-			  led(i);
-			  HAL_Delay(DELAY_FAST);
-		  }
-		  for (int i=LEDS; i>0; i--)
-		  {
-			  led(i);
-			  HAL_Delay(DELAY_FAST);
+			  a = 0;
+			  Lampen_Test(a);
 		  }
 	  }
 
+
+	  while(HAL_GPIO_ReadPin(Taster2_GPIO_Port,Taster2_Pin))
+	  {
+		  for (int i=1; i<LEDS; i++)
+		  {
+
+			  led(i,1);
+			  HAL_Delay(DELAY_FAST);
+		  }
+		  for (int i=LEDS; i>1; i--)
+		  {
+			  led(i,0);
+			  HAL_Delay(DELAY_FAST);
+		  }
+	  }
   }
   /* USER CODE END 3 */
 }
