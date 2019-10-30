@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#define stufenProDrehung 200
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,7 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-#define stufenProDrehung 200
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,28 +100,25 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 	  //Dreh richtung einstellen
-	  HAL_GPIO_WritePin(/*Dir Pin*/);
-
+	  HAL_GPIO_WritePin(DIR_PINOUT_GPIO_Port,DIR_PINOUT_Pin,1);
 	  //Motor Bewegen Langsam
 	  for(int a=0; a<stufenProDrehung; a++){
-		  HAL_GPIO_TogglePin(/*Step Pin*/);
+		  HAL_GPIO_TogglePin(STEP_PINOUT_GPIO_Port,STEP_PINOUT_Pin);
 		  HAL_Delay(200);
 	  }
 	  //Drehpause
 	  HAL_Delay(1000);
-
 	  //Dreh richtung einstellen
-	  HAL_GPIO_WritePin(/*Dir Pin*/);
-
+	  HAL_GPIO_WritePin(DIR_PINOUT_GPIO_Port,DIR_PINOUT_Pin,0);
 	  //Motor Bewegen Langsam
 	  for(int b=0; b<stufenProDrehung; b++){
-		  HAL_GPIO_TogglePin(/*Step Pin*/);
+		  HAL_GPIO_TogglePin(STEP_PINOUT_GPIO_Port,STEP_PINOUT_Pin);
 		  HAL_Delay(10);
 	  }
 	  //Drehpause
 	  HAL_Delay(1000);
+
 
   }
   /* USER CODE END 3 */
