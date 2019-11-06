@@ -35,7 +35,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MotorSteps 100
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,6 +57,56 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void vordrehen(float Step_Time){
+		for(int a=0; a<MotorSteps;a++){
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,1);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,1);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,0);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,0);
+			  HAL_Delay(Step_Time);
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,0);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,1);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,1);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,0);
+			  HAL_Delay(Step_Time);
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,0);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,0);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,1);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,1);
+			  HAL_Delay(Step_Time);
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,1);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,0);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,0);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,1);
+			  HAL_Delay(Step_Time);
+	}
+}
+
+void zurueckdrehen(float Step_Time){
+		for(int b=0; b<MotorSteps;b++){
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,1);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,0);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,0);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,1);
+			  HAL_Delay(Step_Time);
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,0);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,0);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,1);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,1);
+			  HAL_Delay(Step_Time);
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,0);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,1);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,1);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,0);
+			  HAL_Delay(Step_Time);
+			  HAL_GPIO_WritePin(IN1_A_GPIO_Port,IN1_A_Pin,1);
+			  HAL_GPIO_WritePin(IN3_B_GPIO_Port,IN3_B_Pin,1);
+			  HAL_GPIO_WritePin(IN2_A_GPIO_Port,IN2_A_Pin,0);
+			  HAL_GPIO_WritePin(IN4_B_GPIO_Port,IN4_B_Pin,0);
+			  HAL_Delay(Step_Time);
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -100,6 +150,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+vordrehen(0.005);
+HAL_Delay(2000);
+zurueckdrehen(0.005);
+
   }
   /* USER CODE END 3 */
 }
