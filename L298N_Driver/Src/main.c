@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define stufenProDrehung 200
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,19 +58,6 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void Drehen(int Richtung, int Takt){
-
-	  //Dreh richtung einstellen
-	  HAL_GPIO_WritePin(DIR_PINOUT_GPIO_Port,DIR_PINOUT_Pin,Richtung);
-	  //Motor Bewegen Langsam
-	  for(int a=0; a<stufenProDrehung; a++){
-		  HAL_GPIO_WritePin(STEP_PINOUT_GPIO_Port,STEP_PINOUT_Pin,1);
-		  HAL_Delay(Takt);
-		  HAL_GPIO_WritePin(STEP_PINOUT_GPIO_Port,STEP_PINOUT_Pin,0);
-		  HAL_Delay(Takt);
-	  }
-
-}
 /* USER CODE END 0 */
 
 /**
@@ -113,15 +100,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-	 /*Erster Übergabe Parameter 1=Rechtslauf 0=linslauf
-	  Zweiter Parameter ist die Takt Frequenz in milisekunden*/
-	 Drehen(1,1);
-	 Drehen(1,3);
-	 HAL_Delay(1000);
-	 Drehen(0,3);
-	 Drehen(0,1);
-
   }
   /* USER CODE END 3 */
 }
