@@ -43,6 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern volatile int zaehler;
+extern volatile int zaehler2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -207,9 +208,9 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE END TIM6_DAC_IRQn 0 */
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
-  HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
 
   zaehler++;
+  zaehler2++;
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }

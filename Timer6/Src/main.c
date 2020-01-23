@@ -49,6 +49,8 @@
 /* USER CODE BEGIN PV */
 
 volatile int zaehler=0;
+volatile int zaehler2=0;
+int sek = 0;
 
 /* USER CODE END PV */
 
@@ -95,6 +97,17 @@ int main(void)
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim6);
+
+  int flag=0;
+
+  void flashlight(int a){
+	  HAL_GPIO_WritePin(LD2_GPIO_Port,LD2_Pin,SET);
+	  if(zaehler == a){
+		  HAL_GPIO_WritePin(LD2_GPIO_Port,LD2_Pin,RESET);
+		  flag = 0;
+	  }
+  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,9 +117,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(zaehler >=  60){
-		  minuten++;
+	  if(zaehler >= 10){
+		  sek = zaehler;
 		  zaehler = 0;
+		  flag = 1;
+		  /*HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);*/
+	  }
+	  if(sek >= 60){
+		  sek = 0;
+		  minuten++;
 	  }
 	  if(minuten >= 60){
 		  minuten = 0;
@@ -114,6 +133,10 @@ int main(void)
 	  }
 	  if(stunden >= 24){
 		  stunden = 0;
+	  }
+	  if(flag == 1){
+		  int a = 3;
+		  flashlight(a);
 	  }
   }
   /* USER CODE END 3 */
